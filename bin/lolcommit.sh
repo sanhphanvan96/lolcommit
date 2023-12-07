@@ -7,7 +7,8 @@ print_help() {
   echo "Options:"
   echo "  -h, --help    Show this help message and exit"
   echo "  -l, --list    List available themes"
-  echo "  -t THEME      Use the specified theme (default: all)"
+  echo "  -t THEME      Use the specified theme (optional)"
+  echo "  -s SEARCH     Search for a keyword in all themes and generate a random commit from the results"
 }
 
 # Function to list themes
@@ -26,6 +27,13 @@ concat_themes() {
   done
 }
 
+# Function to search themes
+search_themes() {
+  for file in ./themes/*.txt; do
+    grep -i "$1" "$file"
+  done
+}
+
 # Check if no arguments were provided
 if [ $# -eq 0 ]; then
   concat_themes | awk 'BEGIN{srand();} {a[NR]=$0} END{print a[int(rand()*NR)+1]}'
@@ -33,7 +41,7 @@ if [ $# -eq 0 ]; then
 fi
 
 # Parse options
-while getopts ":hlt:" opt; do
+while getopts ":hlt:s:" opt; do
   case ${opt} in
     h)
       print_help
@@ -45,6 +53,9 @@ while getopts ":hlt:" opt; do
       ;;
     t)
       THEME=$OPTARG
+      ;;
+    s)
+      SEARCH=$OPTARG
       ;;
     \?)
       echo "Invalid option: -$OPTARG" 1>&2
@@ -70,10 +81,18 @@ for arg in "$@"; do
     "--")
       set -- "$@" "-t"
       ;;
+    "--search")
+      set -- "$@" "-s"
+      ;;
   esac
 done
 
 if [ -n "$THEME" ]; then
   awk 'BEGIN{srand();} {a[NR]=$0} END{print a[int(rand()*NR)+1]}' "./themes/$THEME.txt"
+  exit 0
+fi
+
+if [ -n "$SEARCH" ]; then
+  search_themes "$SEARCH" | awk 'BEGIN{srand();} {a[NR]=$0} END{print a[int(rand()*NR)+1]}'
   exit 0
 fi
