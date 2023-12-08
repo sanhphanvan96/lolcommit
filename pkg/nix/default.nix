@@ -1,27 +1,30 @@
-{ stdenv, fetchFromGitHub, bash }:
+# nix-build -E 'with import <nixpkgs> { }; callPackage ./default.nix { }'
+# nix-shell -E 'with import <nixpkgs> {}; callPackage ./default.nix { }'
 
-stdenv.mkDerivation rec {
-  pname = "lolcommit";
-  version = "1.0.0";
-
-  src = fetchFromGitHub {
-    owner = "your-github-username";
-    repo = pname;
-    rev = "v${version}";
-    sha256 = "0000000000000000000000000000000000000000000000000000";
-  };
-
-  buildInputs = [ bash ];
-
-  installPhase = ''
-    mkdir -p $out/bin
-    cp $src/bin/lolcommit.sh $out/bin/lolcommit
-  '';
-
-  meta = with stdenv.lib; {
-    description = "A random commit message generator";
-    homepage = "https://github.com/your-github-username/lolcommit";
-    license = licenses.mit;
-    platforms = platforms.unix;
-  };
-}
+{ stdenv
+, lib
+, fetchFromGitHub
+, bash
+, subversion
+, makeWrapper
+}:
+  stdenv.mkDerivation {
+    pname = "lolcommit";
+    version = "1.0.0";
+    src = fetchFromGitHub {
+      owner = "sanhphanvan96";
+      repo = "lolcommit";
+      rev = "v1.0.0";
+      sha256 = "kiENQHeDqCbujERdxl+Rdzy2WUtvq6Jl7HqvH7zhNlc=";
+    };
+    buildInputs = [ bash subversion ];
+    nativeBuildInputs = [ makeWrapper ];
+    installPhase = ''
+      mkdir -p $out/bin
+      mkdir -p $out/themes
+      cp bin/lolcommit.sh $out/bin/lolcommit.sh
+      cp themes/*.txt $out/themes
+      wrapProgram $out/bin/lolcommit.sh \
+        --prefix PATH : ${lib.makeBinPath [ bash subversion ]}
+    '';
+  }
