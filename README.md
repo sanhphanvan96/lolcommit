@@ -14,6 +14,13 @@ ln -s "$PWD"/bin/lolcommit.sh /usr/local/bin/lolcommit
 lolcommit [OPTIONS]
 ```
 
+### Directly in a Git Commit Message
+
+You can use `lolcommit` directly within a Git commit message by embedding it in the `-m` option:
+```bash
+git commit -m "$(lolcommit)"
+```
+
 ## Options
 
 - `-h, --help`: Show the help message and exit
@@ -30,7 +37,7 @@ $ lolcommit
 The code was feeling a bit too predictable, so I randomized it
 ```
 
-To generate a random commit message from the `funny` theme:
+To generate a random commit message from a theme:
 
 ```
 $ lolcommit -t humorous
