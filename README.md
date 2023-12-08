@@ -2,12 +2,16 @@
 
 This script generates a random commit message. You can specify a theme or search for a keyword in all themes.
 
-## Set up
+## Demo
+[![asciicast](https://asciinema.org/a/625893.svg)](https://asciinema.org/a/625893)
+
+## Setup
 
 ```bash
 git clone https://github.com/sanhphanvan96/lolcommit.git
 ln -s "$PWD"/bin/lolcommit.sh /usr/local/bin/lolcommit
 ```
+
 ## Usage
 
 ```bash
