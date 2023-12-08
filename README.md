@@ -3,8 +3,7 @@
 This script generates a random commit message. You can specify a theme or search for a keyword in all themes.
 
 ## Demo
-[![asciicast](https://asciinema.org/a/625893.svg)](https://asciinema.org/a/625893)
-
+[![asciicast](./demo.gif)](https://asciinema.org/a/625893)
 ## Setup
 
 ```bash
