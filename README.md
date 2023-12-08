@@ -14,7 +14,7 @@ ln -s "$PWD"/bin/lolcommit.sh /usr/local/bin/lolcommit
 lolcommit [OPTIONS]
 ```
 
-### Directly in a Git Commit Message
+- Directly in a Git Commit Message
 
 You can use `lolcommit` directly within a Git commit message by embedding it in the `-m` option:
 ```bash
