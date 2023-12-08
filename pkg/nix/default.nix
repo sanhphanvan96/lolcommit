@@ -10,12 +10,12 @@
 }:
   stdenv.mkDerivation {
     pname = "lolcommit";
-    version = "1.0.0";
+    version = "v1.0.1";
     src = fetchFromGitHub {
       owner = "sanhphanvan96";
       repo = "lolcommit";
-      rev = "v1.0.0";
-      sha256 = "kiENQHeDqCbujERdxl+Rdzy2WUtvq6Jl7HqvH7zhNlc=";
+      rev = "v1.0.1";
+      sha256 = "sha256-5jAkLv7fpeNVHOW1cFwGCV573JkypxInwZs/zu4co+A=";
     };
     buildInputs = [ bash subversion ];
     nativeBuildInputs = [ makeWrapper ];
