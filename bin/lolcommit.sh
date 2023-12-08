@@ -11,28 +11,30 @@ print_help() {
   echo "  -s SEARCH     Search for a keyword in all themes and generate a random commit from the results"
 }
 
-# Get the directory where the script is located
-SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+# Get the directory where the script is located,
+# and resolving symbolic links
+PROJECT_DIR="$( cd "$( dirname "$(readlink -f "${BASH_SOURCE[0]}" || echo "${BASH_SOURCE[0]}")" )" && cd .. && pwd )"
 
 # Function to list themes
 list_themes() {
-  echo "Available themes:"
-  for file in "$SCRIPT_DIR/../themes"/*.txt; do
-    # basename "$file" .txt
-    echo "$file"
+  echo "+ Available themes:"
+  for file in "$PROJECT_DIR/themes"/*.txt; do
+    basename "$file" .txt
+    # echo "$file"
   done
+  echo "+ Themes folder: $PROJECT_DIR/themes"
 }
 
 # Function to concatenate all themes
 concat_themes() {
-  for file in "$SCRIPT_DIR/../themes"/*.txt; do
+  for file in "$PROJECT_DIR/themes"/*.txt; do
     cat "$file"
   done
 }
 
 # Function to search themes
 search_themes() {
-  for file in "$SCRIPT_DIR/../themes"/*.txt; do
+  for file in "$PROJECT_DIR/themes"/*.txt; do
     grep -i "$1" "$file"
   done
 }
@@ -91,7 +93,7 @@ for arg in "$@"; do
 done
 
 if [ -n "$THEME" ]; then
-  awk 'BEGIN{srand();} {a[NR]=$0} END{print a[int(rand()*NR)+1]}' "./themes/$THEME.txt"
+  awk 'BEGIN{srand();} {a[NR]=$0} END{print a[int(rand()*NR)+1]}' "$PROJECT_DIR/themes/$THEME.txt"
   exit 0
 fi
 

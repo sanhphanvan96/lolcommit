@@ -2,10 +2,23 @@
 
 This script generates a random commit message. You can specify a theme or search for a keyword in all themes.
 
+## Set up
+
+```bash
+git clone https://github.com/sanhphanvan96/lolcommit.git
+ln -s "$PWD"/bin/lolcommit.sh /usr/local/bin/lolcommit
+```
 ## Usage
 
 ```bash
-./lolcommit.sh [OPTIONS]
+lolcommit [OPTIONS]
+```
+
+### Directly in a Git Commit Message
+
+You can use `lolcommit` directly within a Git commit message by embedding it in the `-m` option:
+```bash
+git commit -m "$(lolcommit)"
 ```
 
 ## Options
@@ -19,20 +32,29 @@ This script generates a random commit message. You can specify a theme or search
 
 To generate a random commit message from all themes:
 
-```bash
-./lolcommit.sh
+```
+$ lolcommit
+The code was feeling a bit too predictable, so I randomized it
 ```
 
-To generate a random commit message from the `funny` theme:
+To generate a random commit message from a theme:
 
-```bash
-./lolcommit.sh -t funny
+```
+$ lolcommit -t humorous
+I swear it worked on my machine
 ```
 
 To search for a keyword in all themes and generate a random commit from the results:
 
-```bash
-./lolcommit.sh -s bug
+```
+$ lolcommit -s bug
+Just another day at the office, fixed a bug
+
+$ lolcommit -s code
+The code was feeling lonely, so I added some more lines
+
+$ lolcommit -s coffee
+This commit is like a coffee break, it fixes everything
 ```
 
 ## Themes
