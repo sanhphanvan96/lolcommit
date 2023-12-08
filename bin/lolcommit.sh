@@ -1,6 +1,5 @@
 #!/bin/bash
 
-
 # Function to print help message
 print_help() {
   echo "Usage: lolcommit.sh [OPTIONS]"
@@ -12,12 +11,13 @@ print_help() {
   echo "  -s SEARCH     Search for a keyword in all themes and generate a random commit from the results"
 }
 
-script_dir=$(dirname "$0")
+# Get the directory where the script is located
+SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 
 # Function to list themes
 list_themes() {
   echo "Available themes:"
-  for file in "$script_dir/themes/*.txt"; do
+  for file in "$SCRIPT_DIR/../themes"/*.txt; do
     # basename "$file" .txt
     echo "$file"
   done
@@ -25,14 +25,14 @@ list_themes() {
 
 # Function to concatenate all themes
 concat_themes() {
-  for file in "$script_dir/themes/*.txt"; do
+  for file in "$SCRIPT_DIR/../themes"/*.txt; do
     cat "$file"
   done
 }
 
 # Function to search themes
 search_themes() {
-  for file in "$script_dir/themes/*.txt"; do
+  for file in "$SCRIPT_DIR/../themes"/*.txt; do
     grep -i "$1" "$file"
   done
 }
